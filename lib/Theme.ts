@@ -1,13 +1,15 @@
-export const toggleTheme = () => {
-  const root = document.documentElement;
-  
-  if (root.classList.contains("dark-theme")) {
-    root.classList.remove("dark-theme");
-    root.classList.add("white-theme");
-    localStorage.setItem("theme", "white");
-  } else {
-    root.classList.remove("white-theme");
-    root.classList.add("dark-theme");
-    localStorage.setItem("theme", "dark");
-  }
-};
+export const themes = {
+  light: "light",
+  dark: "dark"
+}
+
+export const getTheme = () => {
+  if (typeof window === "undefined") return "light"
+  return localStorage.getItem("theme") || "light"
+}
+
+export const setTheme = (theme: string) => {
+  localStorage.setItem("theme", theme)
+  document.documentElement.classList.remove("light", "dark")
+  document.documentElement.classList.add(theme)
+}
